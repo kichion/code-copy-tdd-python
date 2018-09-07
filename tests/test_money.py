@@ -10,6 +10,8 @@ class TestMoneyMethods(unittest.TestCase):
         five = Dollar(5)
         five.times(2)
         eq_(10, five.amount)
+        five.times(3)
+        eq_(15, five.amount)
 
 
 if __name__ == '__main__':
