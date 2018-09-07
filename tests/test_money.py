@@ -2,6 +2,7 @@ import unittest
 
 from nose.tools import eq_, assert_true, assert_false
 
+from bank import Bank
 from money.factory import MoneyFactory
 
 
@@ -19,6 +20,14 @@ class TestMoneyMethods(unittest.TestCase):
     def test_currency(self):
         assert_true('USD', MoneyFactory.dollar(1).currency)
         assert_true('CHF', MoneyFactory.franc(1).currency)
+
+    def test_simple_addition(self):
+        five = MoneyFactory.dollar(5)
+        sum_ = five.plus(MoneyFactory.dollar(5))
+        eq_(MoneyFactory.dollar(10), sum_)
+        bank = Bank()
+        reduced = bank.reduce(sum_, 'USD')
+        eq_(MoneyFactory.dollar(10), reduced)
 
 
 if __name__ == '__main__':

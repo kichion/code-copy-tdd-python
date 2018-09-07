@@ -1,4 +1,7 @@
-class Money:
+from money.expression import Expression
+
+
+class Money(Expression):
     def __init__(self, amount, currency):
         self._currency = currency
         self._amount = amount
@@ -9,6 +12,9 @@ class Money:
 
     def times(self, multiplier):
         return Money(self.amount * multiplier, self.currency)
+
+    def plus(self, addend):
+        return Money(self.amount + addend.amount, self.currency)
 
     @property
     def amount(self):
