@@ -2,6 +2,7 @@ import unittest
 
 from nose.tools import eq_, assert_true, assert_false
 
+from money import Money
 from money.factory import MoneyFactory
 
 
@@ -26,6 +27,9 @@ class TestMoneyMethods(unittest.TestCase):
     def test_currency(self):
         assert_true('USD', MoneyFactory.dollar(1).currency)
         assert_true('CHF', MoneyFactory.franc(1).currency)
+
+    def test_different_class_equals(self):
+        assert_true(Money(10, 'CHF').__eq__(MoneyFactory.franc(10)))
 
 
 if __name__ == '__main__':
