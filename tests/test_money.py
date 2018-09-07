@@ -2,27 +2,26 @@ import unittest
 
 from nose.tools import eq_, assert_true, assert_false
 
-from money.dollar import Dollar
-from money.franc import Franc
+from money.factory import MoneyFactory
 
 
 class TestMoneyMethods(unittest.TestCase):
     def test_multiplication(self):
-        five = Dollar(5)
-        eq_(Dollar(10), five.times(2))
-        eq_(Dollar(15), five.times(3))
+        five = MoneyFactory.dollar(5)
+        eq_(MoneyFactory.dollar(10), five.times(2))
+        eq_(MoneyFactory.dollar(15), five.times(3))
 
     def test_equals(self):
-        assert_true(Dollar(5).__eq__(Dollar(5)))
-        assert_false(Dollar(5).__eq__(Dollar(3)))
-        assert_true(Franc(5).__eq__(Franc(5)))
-        assert_false(Franc(5).__eq__(Franc(3)))
-        assert_true(Franc(5).__eq__(Dollar(5)))
+        assert_true(MoneyFactory.dollar(5).__eq__(MoneyFactory.dollar(5)))
+        assert_false(MoneyFactory.dollar(5).__eq__(MoneyFactory.dollar(3)))
+        assert_true(MoneyFactory.franc(5).__eq__(MoneyFactory.franc(5)))
+        assert_false(MoneyFactory.franc(5).__eq__(MoneyFactory.franc(3)))
+        assert_false(MoneyFactory.franc(5).__eq__(MoneyFactory.dollar(5)))
 
     def test_franc_multiplication(self):
-        five = Franc(5)
-        eq_(Franc(10), five.times(2))
-        eq_(Franc(15), five.times(3))
+        five = MoneyFactory.franc(5)
+        eq_(MoneyFactory.franc(10), five.times(2))
+        eq_(MoneyFactory.franc(15), five.times(3))
 
 
 if __name__ == '__main__':
