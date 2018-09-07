@@ -1,6 +1,6 @@
 import unittest
 
-from nose.tools import eq_
+from nose.tools import eq_, assert_true
 
 from money import Dollar
 
@@ -13,6 +13,9 @@ class TestMoneyMethods(unittest.TestCase):
         product = five.times(3)
         eq_(15, product.amount)
 
+    def test_equals(self):
+        assert_true(Dollar(5).equals(Dollar(5)))
+        # assert_false(Dollar(5).equals(Dollar(3)))
 
 if __name__ == '__main__':
     unittest.main()
