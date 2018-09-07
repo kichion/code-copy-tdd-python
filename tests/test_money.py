@@ -8,14 +8,13 @@ from money import Dollar
 class TestMoneyMethods(unittest.TestCase):
     def test_multiplication(self):
         five = Dollar(5)
-        product = five.times(2)
-        eq_(10, product.amount)
-        product = five.times(3)
-        eq_(15, product.amount)
+        eq_(Dollar(10), five.times(2))
+        eq_(Dollar(15), five.times(3))
 
     def test_equals(self):
-        assert_true(Dollar(5).equals(Dollar(5)))
-        assert_false(Dollar(5).equals(Dollar(3)))
+        assert_true(Dollar(5).__eq__(Dollar(5)))
+        assert_false(Dollar(5).__eq__(Dollar(3)))
+
 
 if __name__ == '__main__':
     unittest.main()
