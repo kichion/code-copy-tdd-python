@@ -23,6 +23,10 @@ class TestMoneyMethods(unittest.TestCase):
         eq_(MoneyFactory.franc(10), five.times(2))
         eq_(MoneyFactory.franc(15), five.times(3))
 
+    def test_currency(self):
+        assert_true('USD', MoneyFactory.dollar(1).currency)
+        assert_true('CHF', MoneyFactory.franc(1).currency)
+
 
 if __name__ == '__main__':
     unittest.main()
