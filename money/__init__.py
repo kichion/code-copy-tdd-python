@@ -1,5 +1,26 @@
 from expression import Expression
-from sum import Sum
+
+
+class Pair:
+    def __init__(self, from_, to):
+        self.from_ = from_
+        self.to = to
+
+    def __eq__(self, other):
+        return self.from_ == other.from_ and self.to == other.to
+
+    def __hash__(self):
+        return 0
+
+
+class Sum(Expression):
+    def __init__(self, augend, addend):
+        self.augend = augend
+        self.addend = addend
+
+    def reduce(self, bank, to):
+        amount = self.augend.amount + self.addend.amount
+        return Money(amount, to)
 
 
 class Money(Expression):
@@ -17,8 +38,9 @@ class Money(Expression):
     def plus(self, addend):
         return Sum(self, addend)
 
-    def reduce(self, to):
-        return self
+    def reduce(self, bank, to):
+        rate = bank.rate(self.currency, to)
+        return Money(self.amount / rate, to)
 
     @property
     def amount(self):

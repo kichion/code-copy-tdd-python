@@ -3,8 +3,8 @@ import unittest
 from nose.tools import eq_, assert_true, assert_false
 
 from bank import Bank
+from money import Sum
 from money.factory import MoneyFactory
-from sum import Sum
 
 
 class TestMoneyMethods(unittest.TestCase):
@@ -40,12 +40,21 @@ class TestMoneyMethods(unittest.TestCase):
         sum_ = Sum(MoneyFactory.dollar(5), MoneyFactory.dollar(4))
         bank = Bank()
         result = bank.reduce(sum_, 'USD')
-        eq_(MoneyFactory.dollar(7), result)
+        eq_(MoneyFactory.dollar(9), result)
 
     def test_reduce_money(self):
         bank = Bank()
         result = bank.reduce(MoneyFactory.dollar(1), 'USD')
         eq_(MoneyFactory.dollar(1), result)
+
+    def test_reduce_money_different_currency(self):
+        bank = Bank()
+        bank.add_rate('CHF', 'USD', 2)
+        result = bank.reduce(MoneyFactory.franc(2), 'USD')
+        eq_(MoneyFactory.dollar(1), result)
+
+    def test_identity_rate(self):
+        eq_(1, Bank().rate('USD', 'USD'))
 
 
 if __name__ == '__main__':
