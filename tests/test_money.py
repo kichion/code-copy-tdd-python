@@ -64,6 +64,24 @@ class TestMoneyMethods(unittest.TestCase):
         result = bank.reduce(five_bucks.plus(ten_francs), 'USD')
         eq_(MoneyFactory.dollar(10), result)
 
+    def test_sum_plus_money(self):
+        five_bucks = MoneyFactory.dollar(5)
+        ten_francs = MoneyFactory.franc(10)
+        bank = Bank()
+        bank.add_rate('CHF', 'USD', 2)
+        sum_ = Sum(five_bucks, ten_francs).plus(five_bucks)
+        result = bank.reduce(sum_, 'USD')
+        eq_(MoneyFactory.dollar(15), result)
+
+    def test_sum_times(self):
+        five_bucks = MoneyFactory.dollar(5)
+        ten_francs = MoneyFactory.franc(10)
+        bank = Bank()
+        bank.add_rate('CHF', 'USD', 2)
+        sum_ = Sum(five_bucks, ten_francs).times(2)
+        result = bank.reduce(sum_, 'USD')
+        eq_(MoneyFactory.dollar(20), result)
+
 
 if __name__ == '__main__':
     unittest.main()

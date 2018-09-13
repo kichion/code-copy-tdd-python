@@ -23,6 +23,12 @@ class Sum(Expression):
                  + self.addend.reduce(bank, to).amount
         return Money(amount, to)
 
+    def plus(self, addend):
+        return Sum(self, addend)
+
+    def times(self, multiplier):
+        return Sum(self.augend.times(multiplier), self.augend.times(multiplier))
+
 
 class Money(Expression):
     def __init__(self, amount, currency):

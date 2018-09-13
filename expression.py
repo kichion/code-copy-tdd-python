@@ -9,3 +9,7 @@ class Expression:
     @abstractmethod
     def reduce(self, bank, to):
         pass
+
+    @abstractmethod
+    def times(self, multiplier):
+        pass
