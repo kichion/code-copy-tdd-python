@@ -56,6 +56,14 @@ class TestMoneyMethods(unittest.TestCase):
     def test_identity_rate(self):
         eq_(1, Bank().rate('USD', 'USD'))
 
+    def test_mixed_addition(self):
+        five_bucks = MoneyFactory.dollar(5)
+        ten_francs = MoneyFactory.franc(10)
+        bank = Bank()
+        bank.add_rate('CHF', 'USD', 2)
+        result = bank.reduce(five_bucks.plus(ten_francs), 'USD')
+        eq_(MoneyFactory.dollar(10), result)
+
 
 if __name__ == '__main__':
     unittest.main()
